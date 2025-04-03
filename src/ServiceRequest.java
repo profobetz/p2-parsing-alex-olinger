@@ -8,7 +8,7 @@ public class ServiceRequest {
     String reason_for_request;
     String neighborhood;
 
-    ServiceRequest(LocalDate date_opened, LocalDate date_closed, String reason_for_request, String neighborhood) {
+    public ServiceRequest(LocalDate date_opened, LocalDate date_closed, String reason_for_request, String neighborhood) {
         this.date_opened = date_opened;
         this.date_closed = date_closed;
         this.reason_for_request = reason_for_request;
