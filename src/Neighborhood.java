@@ -8,5 +8,6 @@ public class Neighborhood {
     public Neighborhood(String name, List<ServiceRequest> requests) {
         this.name = name;
         this.service_requests = requests;
+        //
     }
 }
