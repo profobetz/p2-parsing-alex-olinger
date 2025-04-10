@@ -4,13 +4,9 @@ import java.util.List;
 public class Neighborhood {
     private String name;
     private List<ServiceRequest> service_requests = new ArrayList<>();
-    private List<ServiceRequest> open_cases = new ArrayList<>();
-    private List<ServiceRequest> overdue_cases = new ArrayList<>();
 
     public Neighborhood(String name) {
         this.name = name;
-        
-        //createCasesListsByStatus();
     }
 
     public String getName() {
@@ -25,22 +21,47 @@ public class Neighborhood {
         this.service_requests.add(request);
     }
 
-    public void createCasesListsByStatus() {
-        for (ServiceRequest service_request : this.service_requests) {
-            if (service_request.getIsOnTime() == true) {
-                this.open_cases.add(service_request);
-            } else if (service_request.getIsOnTime() == false) {
-                this.overdue_cases.add(service_request);
+    public List<ServiceRequest> getOpenCases() {
+        List<ServiceRequest> open_cases = new ArrayList<>();
+        for (ServiceRequest request: this.service_requests) {
+            if (request.bIsOnTime()) {
+                open_cases.add(request);
             }
         }
+        return open_cases;
     }
 
+    public List<ServiceRequest> getClosedCases() {
+        List<ServiceRequest> closed_cases = new ArrayList<>();
+        for (ServiceRequest request: this.service_requests) {
+            if (request.bIsClosed()) {
+                closed_cases.add(request);
+            }
+        }
+        return closed_cases;
+    }
+
+    public List<ServiceRequest> getOverdueCases() {
+        List<ServiceRequest> overdue_cases = new ArrayList<>();
+        for (ServiceRequest request: this.service_requests) {
+            if (!request.bIsClosed()) {
+                overdue_cases.add(request);
+            }
+        }
+        return overdue_cases;
+    }
+
+
     public int getOpenCasesCount() {
-        return this.open_cases.size();
+        return getOpenCases().size();
     }
 
     public int getOverdueCasesCount() {
-        return this.overdue_cases.size();
+        return getOverdueCases().size();
+    }
+
+    public int getClosedCasesCount() {
+        return getClosedCases().size();
     }
 
 
@@ -61,14 +82,13 @@ public class Neighborhood {
     }
 
     
+    public double getOverdueRate() {
+        double num_cases = this.getTotalRequestCount();
+        double num_overdue_cases = this.getOverdueCasesCount();
 
-        public double getOverdueRate() {
-            double num_cases = this.getTotalRequestCount();
-            double num_overdue_cases = this.getOverdueCasesCount();
-
-            double overdue_percent = (num_overdue_cases / num_cases) * 100;
-            return overdue_percent;
+        double overdue_percent = (num_overdue_cases / num_cases) * 100;
+        return overdue_percent;
 
 
-        }
+    }
 }
