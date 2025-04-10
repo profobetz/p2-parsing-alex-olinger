@@ -13,6 +13,11 @@ import org.apache.commons.csv.*;
 import java.util.ArrayList;
 
 
+/**
+ * RequestLoader allows us to load a given CSV file, matching to request entries. Uses those entries to 
+ * fill a ServiceRequest that is attached into a Neighborhood, that RequestLoader also dynamically creates.
+ */
+
 public class RequestLoader {
     private File file;
     
@@ -21,6 +26,12 @@ public class RequestLoader {
         this.file = fileToLoad;
     }
 
+    /**
+     * 
+     * @return the Neighborhoods from data file, in a List
+     * @throws IOException
+     * @throws DateTimeParseException
+    */
 
     public List<Neighborhood> load() throws IOException, DateTimeParseException { 
         
